@@ -5,6 +5,9 @@ colorama
 googletrans
 vosk
 sounddevice
+transformers
+torch
+
 
 
 
