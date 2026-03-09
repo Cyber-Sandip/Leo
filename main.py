@@ -11,26 +11,27 @@ def main():
     speak("Voice assistant started")
 
     while True:
+        try:
 
-        print("Listening...")
+            print("Listening...")
+            user_text = listen()
 
-        # Speech → Text
-        user_text = listen()
+            if not user_text:
+                continue
 
-        if not user_text:
-            continue
+            print("User:", user_text)
 
-        print("User:", user_text)
+            result = phase1_engine(user_text)
 
-        # Text → Intent
-        result = phase1_engine(user_text)
+            print("Intent:", result["intent"])
+            print("Entities:", result["entities"])
 
-        print("Intent:", result["intent"])
-        print("Entities:", result["entities"])
+            execute_command(result, user_text)
 
-        # Execute command
-        execute_command(result, user_text)
+        except KeyboardInterrupt:
 
+            speak("Stopping assistant")
+            break
 
 if __name__ == "__main__":
     main()
