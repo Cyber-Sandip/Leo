@@ -1,8 +1,10 @@
 import os
 import webbrowser
 import datetime
+import pyautogui
 
 from voice.text_to_speech import speak
+from core.app_launcher import open_app
 
 
 def execute_command(result, text):
@@ -15,8 +17,22 @@ def execute_command(result, text):
 
         app = entities.get("app")
 
-        if app == "chrome":
-            speak("Opening Chrome")
+        # First try automatic app launcher
+        if open_app(app):
+            speak(f"Opening {app}")
+            return
+
+        # Web apps fallback
+        if app == "youtube":
+            speak("Opening YouTube")
+            webbrowser.open("https://www.youtube.com")
+
+        elif app == "whatsapp":
+            speak("Opening WhatsApp Web")
+            webbrowser.open("https://web.whatsapp.com")
+
+        elif app == "google":
+            speak("Opening Google")
             webbrowser.open("https://www.google.com")
 
         elif app == "notepad":
@@ -28,7 +44,7 @@ def execute_command(result, text):
             os.system("calc")
 
         else:
-            speak("Application not supported")
+            speak("Application not found")
 
     # GET TIME
     elif intent == "GET_TIME":

@@ -28,7 +28,12 @@ def phase1_engine(text):
             "entities": {"app": "calculator"},
             "confidence": 1.0
         }
-
+    if "open Whatsapp" in text:
+        return {
+            "intent":"OPEN_APP",
+            "entities":{"app" : "Whatsapp"},
+            "confidence": 1.0
+        }
     # TIME
     if "time" in text:
         return {
