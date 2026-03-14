@@ -7,8 +7,5 @@ vosk
 sounddevice
 transformers
 torch
-
-
-
-
+psutil
 

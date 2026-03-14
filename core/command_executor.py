@@ -2,6 +2,8 @@ import os
 import webbrowser
 import datetime
 import pyautogui
+import psutil
+
 
 from voice.text_to_speech import speak
 from core.app_launcher import open_app
@@ -34,21 +36,46 @@ def execute_command(result, text):
         elif app == "google":
             speak("Opening Google")
             webbrowser.open("https://www.google.com")
-
-        elif app == "notepad":
-            speak("Opening Notepad")
-            os.system("notepad")
-
-        elif app == "calculator":
-            speak("Opening Calculator")
-            os.system("calc")
-
+                 
         else:
             speak("Application not found")
 
+
+    
+
+    elif intent == "OPEN_CAMERA":
+        speak("Opening camera")
+        os.system("start microsoft.windows.camera:")
+
+    elif intent == "VOLUME_UP":
+        speak("Increasing volume")
+
+        for _ in range(5):
+            pyautogui.press("volumeup")
+
+    elif intent == "VOLUME_DOWN":
+        speak("Decreasing volume")
+        for _ in range(5):
+            pyautogui.press("volumedown")
+
+
+    elif intent == "RESTART":
+        speak("Restarting computer")
+        os.system("shutdown /r /t 1")
+
+
+    elif intent == "SHUTDOWN":
+        speak("Shutting down system")
+        os.system("shutdown /s /t 1")
+
+
+    elif intent == "SCREENSHOT":
+        speak("Taking screenshot")
+        img = pyautogui.screenshot()
+        img.save("screenshot.png")
+
     # GET TIME
     elif intent == "GET_TIME":
-
         time = datetime.datetime.now().strftime("%H:%M")
         speak(f"The time is {time}")
 
