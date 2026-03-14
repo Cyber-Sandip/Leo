@@ -1,39 +1,70 @@
-# commands/phase1_engine.py
-
 import re
 
 
 def phase1_engine(text):
 
-    text = text.lower()
+    text = text.lower().strip()
 
-    # OPEN APP
-    if "open chrome" in text or "launch chrome" in text:
+    # OPEN ANY APP
+    match = re.search(r"(open|launch|start)\s+(.*)", text)
+
+    if match:
+        app = match.group(2)
+
         return {
             "intent": "OPEN_APP",
-            "entities": {"app": "chrome"},
-            "confidence": 1.0
-        }
-
-    if "open notepad" in text:
-        return {
-            "intent": "OPEN_APP",
-            "entities": {"app": "notepad"},
+            "entities": {"app": app},
             "confidence": 1.0
         }
 
-    if "open calculator" in text:
+    # OPEN CAMERA
+    if "camera" in text:
         return {
-            "intent": "OPEN_APP",
-            "entities": {"app": "calculator"},
+            "intent": "OPEN_CAMERA",
+            "entities": {},
             "confidence": 1.0
         }
-    if "open Whatsapp" in text:
+
+    # VOLUME UP
+    if "volume up" in text:
         return {
-            "intent":"OPEN_APP",
-            "entities":{"app" : "Whatsapp"},
+            "intent": "VOLUME_UP",
+            "entities": {},
             "confidence": 1.0
         }
+
+    # VOLUME DOWN
+    if "volume down" in text:
+        return {
+            "intent": "VOLUME_DOWN",
+            "entities": {},
+            "confidence": 1.0
+        }
+
+    # RESTART
+    if "restart" in text:
+        return {
+            "intent": "RESTART",
+            "entities": {},
+            "confidence": 1.0
+        }
+
+    # SHUTDOWN
+    if "shutdown" in text:
+        return {
+            "intent": "SHUTDOWN",
+            "entities": {},
+            "confidence": 1.0
+        }
+
+    # SCREENSHOT
+    if "screenshot" in text:
+        return {
+            "intent": "SCREENSHOT",
+            "entities": {},
+            "confidence": 1.0
+        }
+
     # TIME
     if "time" in text:
         return {
@@ -61,7 +92,7 @@ def phase1_engine(text):
         }
 
     # EXIT
-    if "exit" in text or "quit" in text:
+    if "exit" in text or "quit" in text or "stop" in text:
         return {
             "intent": "EXIT",
             "entities": {},
